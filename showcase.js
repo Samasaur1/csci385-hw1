@@ -312,6 +312,118 @@ function makeSphere() {
     glEnd();
 }
 
+function makeSolid() {
+    glBegin(GL_TRIANGLES, "stellated_octahedron", true);
+
+    glColor3f(Math.random(), Math.random(), Math.random());
+    glVertex3f(1.0, 1.0, 1.0);
+    glVertex3f(0.0, 0.0, 1.0);
+    glVertex3f(1.0, 0.0, 0.0);
+    glColor3f(Math.random(), Math.random(), Math.random());
+    glVertex3f(1.0, 1.0, 1.0);
+    glVertex3f(0.0, 0.0, 1.0);
+    glVertex3f(0.0, 1.0, 0.0);
+    glColor3f(Math.random(), Math.random(), Math.random());
+    glVertex3f(1.0, 0.0, 0.0);
+    glVertex3f(1.0, 1.0, 1.0);
+    glVertex3f(0.0, 1.0, 0.0);
+
+    glColor3f(Math.random(), Math.random(), Math.random());
+    glVertex3f(-1.0, 1.0, 1.0);
+    glVertex3f(-0.0, 0.0, 1.0);
+    glVertex3f(-1.0, 0.0, 0.0);
+    glColor3f(Math.random(), Math.random(), Math.random());
+    glVertex3f(-1.0, 1.0, 1.0);
+    glVertex3f(-0.0, 0.0, 1.0);
+    glVertex3f(-0.0, 1.0, 0.0);
+    glColor3f(Math.random(), Math.random(), Math.random());
+    glVertex3f(-1.0, 0.0, 0.0);
+    glVertex3f(-1.0, 1.0, 1.0);
+    glVertex3f(-0.0, 1.0, 0.0);
+
+    glColor3f(Math.random(), Math.random(), Math.random());
+    glVertex3f(1.0, -1.0, 1.0);
+    glVertex3f(0.0, -0.0, 1.0);
+    glVertex3f(1.0, -0.0, 0.0);
+    glColor3f(Math.random(), Math.random(), Math.random());
+    glVertex3f(1.0, -1.0, 1.0);
+    glVertex3f(0.0, -0.0, 1.0);
+    glVertex3f(0.0, -1.0, 0.0);
+    glColor3f(Math.random(), Math.random(), Math.random());
+    glVertex3f(1.0, -0.0, 0.0);
+    glVertex3f(1.0, -1.0, 1.0);
+    glVertex3f(0.0, -1.0, 0.0);
+
+    glColor3f(Math.random(), Math.random(), Math.random());
+    glVertex3f(-1.0, -1.0, 1.0);
+    glVertex3f(-0.0, -0.0, 1.0);
+    glVertex3f(-1.0, -0.0, 0.0);
+    glColor3f(Math.random(), Math.random(), Math.random());
+    glVertex3f(-1.0, -1.0, 1.0);
+    glVertex3f(-0.0, -0.0, 1.0);
+    glVertex3f(-0.0, -1.0, 0.0);
+    glColor3f(Math.random(), Math.random(), Math.random());
+    glVertex3f(-1.0, -0.0, 0.0);
+    glVertex3f(-1.0, -1.0, 1.0);
+    glVertex3f(-0.0, -1.0, 0.0);
+
+
+
+    glColor3f(Math.random(), Math.random(), Math.random());
+    glVertex3f(1.0, 1.0, -1.0);
+    glVertex3f(0.0, 0.0, -1.0);
+    glVertex3f(1.0, 0.0, -0.0);
+    glColor3f(Math.random(), Math.random(), Math.random());
+    glVertex3f(1.0, 1.0, -1.0);
+    glVertex3f(0.0, 0.0, -1.0);
+    glVertex3f(0.0, 1.0, -0.0);
+    glColor3f(Math.random(), Math.random(), Math.random());
+    glVertex3f(1.0, 0.0, -0.0);
+    glVertex3f(1.0, 1.0, -1.0);
+    glVertex3f(0.0, 1.0, -0.0);
+
+    glColor3f(Math.random(), Math.random(), Math.random());
+    glVertex3f(-1.0, 1.0, -1.0);
+    glVertex3f(-0.0, 0.0, -1.0);
+    glVertex3f(-1.0, 0.0, -0.0);
+    glColor3f(Math.random(), Math.random(), Math.random());
+    glVertex3f(-1.0, 1.0, -1.0);
+    glVertex3f(-0.0, 0.0, -1.0);
+    glVertex3f(-0.0, 1.0, -0.0);
+    glColor3f(Math.random(), Math.random(), Math.random());
+    glVertex3f(-1.0, 0.0, -0.0);
+    glVertex3f(-1.0, 1.0, -1.0);
+    glVertex3f(-0.0, 1.0, -0.0);
+
+    glColor3f(Math.random(), Math.random(), Math.random());
+    glVertex3f(1.0, -1.0, -1.0);
+    glVertex3f(0.0, -0.0, -1.0);
+    glVertex3f(1.0, -0.0, -0.0);
+    glColor3f(Math.random(), Math.random(), Math.random());
+    glVertex3f(1.0, -1.0, -1.0);
+    glVertex3f(0.0, -0.0, -1.0);
+    glVertex3f(0.0, -1.0, -0.0);
+    glColor3f(Math.random(), Math.random(), Math.random());
+    glVertex3f(1.0, -0.0, -0.0);
+    glVertex3f(1.0, -1.0, -1.0);
+    glVertex3f(0.0, -1.0, -0.0);
+
+    glColor3f(Math.random(), Math.random(), Math.random());
+    glVertex3f(-1.0, -1.0, -1.0);
+    glVertex3f(-0.0, -0.0, -1.0);
+    glVertex3f(-1.0, -0.0, -0.0);
+    glColor3f(Math.random(), Math.random(), Math.random());
+    glVertex3f(-1.0, -1.0, -1.0);
+    glVertex3f(-0.0, -0.0, -1.0);
+    glVertex3f(-0.0, -1.0, -0.0);
+    glColor3f(Math.random(), Math.random(), Math.random());
+    glVertex3f(-1.0, -0.0, -0.0);
+    glVertex3f(-1.0, -1.0, -1.0);
+    glVertex3f(-0.0, -1.0, -0.0);
+
+    glEnd();
+}
+
 // ***** RENDERING *****
 //
 // Functions for displaying the selected object of the showcase.
@@ -339,6 +451,9 @@ function drawObject() {
     }
     if (gShowWhich == 4) {
         glBeginEnd("sphere");
+    }
+    if (gShowWhich == 5) {
+        glBeginEnd("stellated_octahedron");
     }
     //
     // Add other objects for the assignment here.
@@ -402,6 +517,10 @@ function handleKey(key, x, y) {
     //
     if (key == '4') {
         gShowWhich = 4;
+    }
+    //
+    if (key == '5') {
+        gShowWhich = 5;
     }
     
     glutPostRedisplay();
@@ -518,6 +637,7 @@ function main() {
     makeCube();
     makeCylinder(24);
     makeSphere();
+    makeSolid();
 
     // Register interaction callbacks.
     glutKeyboardFunc(handleKey);
