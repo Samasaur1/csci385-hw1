@@ -239,6 +239,79 @@ function makeTetrahedron() {
     glEnd();
 }
 
+function makeSphere() {
+    const radius = 1.0;
+    const numFacets = 24;
+    const dAngle = 2.0 * Math.PI / numFacets;
+
+
+    glBegin(GL_TRIANGLES, "sphere", true);
+
+    let ringRadius = radius * Math.sin(dAngle);
+
+    // bottom ring
+    let z = -radius * Math.cos(dAngle);
+    for (let i = 0; i < numFacets; i++) {
+        const x = ringRadius * Math.cos(dAngle * i);
+        const y = ringRadius * Math.sin(dAngle * i);
+        const xNext = ringRadius * Math.cos(dAngle * (i+1));
+        const yNext = ringRadius * Math.sin(dAngle * (i+1));
+
+        glColor3f(Math.random(), Math.random(), Math.random());
+        glVertex3f(0.0, 0.0, -radius);
+        glVertex3f(x, y, z);
+        glVertex3f(xNext, yNext, z);
+    }
+
+    // inner rings
+    for (let j = 1; j < (numFacets - 1); j++) {
+        ringRadius = radius * Math.sin(dAngle * j);
+        rrNext = radius * Math.sin(dAngle * (j+1));
+        z = radius * Math.cos(dAngle * j);
+        zNext = radius * Math.cos(dAngle * (j+1));
+        for (let i = 0; i < numFacets / 2; i++) {
+            const x = ringRadius * Math.cos(dAngle * i);
+            const y = ringRadius * Math.sin(dAngle * i);
+            const xNext = ringRadius * Math.cos(dAngle * (i+1));
+            const yNext = ringRadius * Math.sin(dAngle * (i+1));
+
+            const rrX = rrNext * Math.cos(dAngle * i);
+            const rrY = rrNext * Math.sin(dAngle * i);
+            const rrXNext = rrNext * Math.cos(dAngle * (i+1));
+            const rrYNext = rrNext * Math.sin(dAngle * (i+1));
+
+            const r = Math.random();
+            const g = Math.random();
+            const b = Math.random();
+            glColor3f(r, g, b);
+            glVertex3f(x, y, z);
+            glVertex3f(xNext, yNext, z);
+            glVertex3f(rrX, rrY, zNext);
+            glColor3f(r, g, b);
+            glVertex3f(rrX, rrY, zNext);
+            glVertex3f(rrXNext, rrYNext, zNext);
+            glVertex3f(xNext, yNext, z);
+        }
+    }
+
+    // top ring
+    ringRadius = radius * Math.sin(dAngle);
+    z = radius * Math.cos(dAngle);
+    for (let i = 0; i < numFacets; i++) {
+        const x = ringRadius * Math.cos(dAngle * i);
+        const y = ringRadius * Math.sin(dAngle * i);
+        const xNext = ringRadius * Math.cos(dAngle * (i+1));
+        const yNext = ringRadius * Math.sin(dAngle * (i+1));
+
+        glColor3f(Math.random(), Math.random(), Math.random());
+        glVertex3f(0.0, 0.0, radius);
+        glVertex3f(x, y, z);
+        glVertex3f(xNext, yNext, z);
+    }
+
+    glEnd();
+}
+
 // ***** RENDERING *****
 //
 // Functions for displaying the selected object of the showcase.
@@ -263,6 +336,9 @@ function drawObject() {
     }
     if (gShowWhich == 3) {
         glBeginEnd("Cylinder");
+    }
+    if (gShowWhich == 4) {
+        glBeginEnd("sphere");
     }
     //
     // Add other objects for the assignment here.
@@ -322,6 +398,10 @@ function handleKey(key, x, y) {
     //
     if (key == '3') {
         gShowWhich = 3;
+    }
+    //
+    if (key == '4') {
+        gShowWhich = 4;
     }
     
     glutPostRedisplay();
@@ -437,6 +517,7 @@ function main() {
     makeTetrahedron();
     makeCube();
     makeCylinder(24);
+    makeSphere();
 
     // Register interaction callbacks.
     glutKeyboardFunc(handleKey);
