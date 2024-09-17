@@ -1,0 +1,3 @@
+The stellated octahedron was fairly straightforward. The sphere was okay once I wrapped my mind around the required trig, but I did have a parity issue when I tried to alternate colors, which is why I made everything random colors (I believe the root cause was that `sin` becomes negative after half a revolution, but it made my sphere look weird and I didn't want to deal with it). The torus was not too bad either once I had done the sphere. Once I had made the torus, the `makeRevolution` function was easy.
+
+You can control the smoothness of all the round shapes by pressing `o` (decrease smoothness) and `p` (increase smoothness). It did take me a bit to realize that in addition to calling `glutPostRedisplay`, you actually need to re-make the round shapes as well.
