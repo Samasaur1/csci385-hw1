@@ -472,6 +472,52 @@ function makeTorus() {
     glEnd();
 }
 
+function makeRevolution(name, points) {
+    glBegin(GL_TRIANGLES, name, true);
+
+    const numFacets = 240;
+    const dAngle = 2.0 * Math.PI / numFacets;
+
+    for (let i = 0; i < numFacets; i++) {
+        const xAngle = Math.cos(dAngle * i);
+        const yAngle = Math.sin(dAngle * i);
+        const xNextAngle = Math.cos(dAngle * (i+1));
+        const yNextAngle = Math.sin(dAngle * (i+1));
+
+        for (let j = 0; j < points.length - 1; j++) {
+            const outward = points[j].x;
+            const z = points[j].y;
+            const outwardNext = points[j+1].x;
+            const zNext = points[j+1].y;
+
+            const x1 = xAngle * outward;
+            const y1 = yAngle * outward;
+            const x2 = xAngle * outwardNext;
+            const y2 = yAngle * outwardNext;
+            const x3 = xNextAngle * outward;
+            const y3 = yNextAngle * outward;
+            const x4 = xNextAngle * outwardNext;
+            const y4 = yNextAngle * outwardNext;
+
+            const r = Math.random();
+            const g = Math.random();
+            const b = Math.random();
+
+            glColor3f(r, g, b);
+            glVertex3f(x1, y1, z);
+            glVertex3f(x2, y2, zNext);
+            glVertex3f(x3, y3, z);
+
+            glColor3f(r, g, b);
+            glVertex3f(x2, y2, zNext);
+            glVertex3f(x3, y3, z);
+            glVertex3f(x4, y4, zNext);
+        }
+    }
+
+    glEnd();
+}
+
 // ***** RENDERING *****
 //
 // Functions for displaying the selected object of the showcase.
@@ -505,6 +551,12 @@ function drawObject() {
     }
     if (gShowWhich == 6) {
         glBeginEnd("torus");
+    }
+    if (gShowWhich == 7) {
+        glBeginEnd("glass");
+    }
+    if (gShowWhich == 8) {
+        glBeginEnd("face");
     }
     //
     // Add other objects for the assignment here.
@@ -576,6 +628,14 @@ function handleKey(key, x, y) {
     //
     if (key == '6') {
         gShowWhich = 6;
+    }
+    //
+    if (key == '7') {
+        gShowWhich = 7;
+    }
+    //
+    if (key == '8') {
+        gShowWhich = 8;
     }
     
     glutPostRedisplay();
@@ -694,6 +754,8 @@ function main() {
     makeSphere();
     makeSolid();
     makeTorus();
+    makeRevolution("glass", [{x: 0, y: 0}, {x: 1, y: 1}, {x: 1.1, y: 1}, {x: 0.1, y: 0.1}, {x: 0.1, y: -0.9}, {x: 0.5, y: -1}, {x: 0.3, y: -1}, {x: 0, y: -0.975}]);
+    makeRevolution("face", [{x: 0, y: 1.6}, {x: 0.4, y: 1.4}, {x: 0.36, y: 1.34}, {x: 0.5, y: 1.2}, {x: 0.4, y: 1.2}, {x: 0.44, y: 1.10}, {x: 0.42, y: 1.08}, {x: 0.44, y: 1.06}, {x: 0.4, y: 1.0}, {x: 0.44, y: 0.96}, {x: 0.44, y: 0.92}, {x: 0.4, y: 0.88}, {x: 0.10, y: 0.84}, {x: 0.12, y: 0.6}]);
 
     // Register interaction callbacks.
     glutKeyboardFunc(handleKey);
