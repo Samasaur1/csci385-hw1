@@ -424,6 +424,54 @@ function makeSolid() {
     glEnd();
 }
 
+function makeTorus() {
+    glBegin(GL_TRIANGLES, "torus", true);
+
+    const radius = 1.0;
+    const crossSectionRadius = 0.2;
+    const numFacets = 24;
+    const dAngle = 2.0 * Math.PI / numFacets;
+
+    for (let i = 0; i < numFacets; i++) {
+        const centerXAngle = Math.cos(dAngle * i);
+        const centerYAngle = Math.sin(dAngle * i);
+        const centerNextXAngle = Math.cos(dAngle * (i+1));
+        const centerNextYAngle = Math.sin(dAngle * (i+1));
+
+        for (let j = 0; j < numFacets; j++) {
+            const outward = crossSectionRadius * Math.cos(dAngle * j);
+            const z = crossSectionRadius * Math.sin(dAngle * j);
+            const outwardNext = crossSectionRadius * Math.cos(dAngle * (j+1));
+            const zNext = crossSectionRadius * Math.sin(dAngle * (j+1));
+
+            const x1 = centerXAngle * (radius + outward);
+            const y1 = centerYAngle * (radius + outward);
+            const x2 = centerXAngle * (radius + outwardNext);
+            const y2 = centerYAngle * (radius + outwardNext);
+            const x3 = centerNextXAngle * (radius + outward);
+            const y3 = centerNextYAngle * (radius + outward);
+            const x4 = centerNextXAngle * (radius + outwardNext);
+            const y4 = centerNextYAngle * (radius + outwardNext);
+
+            const r = Math.random();
+            const g = Math.random();
+            const b = Math.random();
+
+            glColor3f(r, g, b);
+            glVertex3f(x1, y1, z);
+            glVertex3f(x2, y2, zNext);
+            glVertex3f(x3, y3, z);
+
+            glColor3f(r, g, b);
+            glVertex3f(x2, y2, zNext);
+            glVertex3f(x3, y3, z);
+            glVertex3f(x4, y4, zNext);
+        }
+    }
+
+    glEnd();
+}
+
 // ***** RENDERING *****
 //
 // Functions for displaying the selected object of the showcase.
@@ -454,6 +502,9 @@ function drawObject() {
     }
     if (gShowWhich == 5) {
         glBeginEnd("stellated_octahedron");
+    }
+    if (gShowWhich == 6) {
+        glBeginEnd("torus");
     }
     //
     // Add other objects for the assignment here.
@@ -521,6 +572,10 @@ function handleKey(key, x, y) {
     //
     if (key == '5') {
         gShowWhich = 5;
+    }
+    //
+    if (key == '6') {
+        gShowWhich = 6;
     }
     
     glutPostRedisplay();
@@ -638,6 +693,7 @@ function main() {
     makeCylinder(24);
     makeSphere();
     makeSolid();
+    makeTorus();
 
     // Register interaction callbacks.
     glutKeyboardFunc(handleKey);
