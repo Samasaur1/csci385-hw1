@@ -43,6 +43,15 @@ let gMouseDrag   = false;
 //
 let gShowWhich = 1;
 
+// Global smoothness variable
+let gSmoothness = 24;
+
+// Global list of points for revolutions (since they must be recreated)
+let gRevolutionPoints = {
+    glass: [{x: 0, y: 0}, {x: 1, y: 1}, {x: 1.1, y: 1}, {x: 0.1, y: 0.1}, {x: 0.1, y: -0.9}, {x: 0.5, y: -1}, {x: 0.3, y: -1}, {x: 0, y: -0.975}],
+    face: [{x: 0, y: 1.6}, {x: 0.4, y: 1.4}, {x: 0.36, y: 1.34}, {x: 0.5, y: 1.2}, {x: 0.4, y: 1.2}, {x: 0.44, y: 1.10}, {x: 0.42, y: 1.08}, {x: 0.44, y: 1.06}, {x: 0.4, y: 1.0}, {x: 0.44, y: 0.96}, {x: 0.44, y: 0.92}, {x: 0.4, y: 0.88}, {x: 0.10, y: 0.84}, {x: 0.12, y: 0.6}],
+}
+
 // ***** MAKERS *****
 //
 // Functions that describe objects in the showcase. These get called
@@ -241,7 +250,7 @@ function makeTetrahedron() {
 
 function makeSphere() {
     const radius = 1.0;
-    const numFacets = 24;
+    const numFacets = gSmoothness;
     const dAngle = 2.0 * Math.PI / numFacets;
 
 
@@ -429,7 +438,7 @@ function makeTorus() {
 
     const radius = 1.0;
     const crossSectionRadius = 0.2;
-    const numFacets = 24;
+    const numFacets = gSmoothness;
     const dAngle = 2.0 * Math.PI / numFacets;
 
     for (let i = 0; i < numFacets; i++) {
@@ -475,7 +484,7 @@ function makeTorus() {
 function makeRevolution(name, points) {
     glBegin(GL_TRIANGLES, name, true);
 
-    const numFacets = 240;
+    const numFacets = gSmoothness;
     const dAngle = 2.0 * Math.PI / numFacets;
 
     for (let i = 0; i < numFacets; i++) {
@@ -637,6 +646,25 @@ function handleKey(key, x, y) {
     if (key == '8') {
         gShowWhich = 8;
     }
+
+    if (key == 'o') {
+        gSmoothness /= 2;
+        makeCylinder(gSmoothness);
+
+        makeSphere();
+        makeTorus();
+        makeRevolution("glass", gRevolutionPoints['glass']);
+        makeRevolution("face", gRevolutionPoints['face']);
+    }
+    if (key == 'p') {
+        gSmoothness *= 2;
+        makeCylinder(gSmoothness);
+
+        makeSphere();
+        makeTorus();
+        makeRevolution("glass", gRevolutionPoints['glass']);
+        makeRevolution("face", gRevolutionPoints['face']);
+    }
     
     glutPostRedisplay();
 }
@@ -750,12 +778,12 @@ function main() {
     // Build the renderable objects.
     makeTetrahedron();
     makeCube();
-    makeCylinder(24);
+    makeCylinder(gSmoothness);
     makeSphere();
     makeSolid();
     makeTorus();
-    makeRevolution("glass", [{x: 0, y: 0}, {x: 1, y: 1}, {x: 1.1, y: 1}, {x: 0.1, y: 0.1}, {x: 0.1, y: -0.9}, {x: 0.5, y: -1}, {x: 0.3, y: -1}, {x: 0, y: -0.975}]);
-    makeRevolution("face", [{x: 0, y: 1.6}, {x: 0.4, y: 1.4}, {x: 0.36, y: 1.34}, {x: 0.5, y: 1.2}, {x: 0.4, y: 1.2}, {x: 0.44, y: 1.10}, {x: 0.42, y: 1.08}, {x: 0.44, y: 1.06}, {x: 0.4, y: 1.0}, {x: 0.44, y: 0.96}, {x: 0.44, y: 0.92}, {x: 0.4, y: 0.88}, {x: 0.10, y: 0.84}, {x: 0.12, y: 0.6}]);
+    makeRevolution("glass", gRevolutionPoints['glass']);
+    makeRevolution("face", gRevolutionPoints['face']);
 
     // Register interaction callbacks.
     glutKeyboardFunc(handleKey);
